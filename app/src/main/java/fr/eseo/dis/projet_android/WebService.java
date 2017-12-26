@@ -41,7 +41,7 @@ public class WebService {
     public WebService() throws MalformedURLException {
     }
 
-    public InputStream sendRequest(URL adresse, Context cont) throws Exception {
+    public static InputStream sendRequest(URL adresse, Context cont) throws Exception {
         Log.i("Test", "sendrequest");
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
@@ -61,16 +61,16 @@ public class WebService {
         KeyStore keyStore = KeyStore.getInstance(keyStoreType);
         keyStore.load(null, null);
         keyStore.setCertificateEntry("ca", ca);
-        System.out.println("OK1");
+
         // Create a TrustManager that trusts the CAs in our KeyStore
         String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
         TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
         tmf.init(keyStore);
-        System.out.println("OK2");
+
         // Create an SSLContext that uses our TrustManager
         SSLContext context = SSLContext.getInstance("TLS");
         context.init(null, tmf.getTrustManagers(), null);
-        System.out.println("OK3");
+
         // Tell the URLConnection to use a SocketFactory from our SSLContext
         System.out.println("adresse"+adresse);
         HttpsURLConnection urlConnection =
@@ -78,7 +78,7 @@ public class WebService {
         System.out.println("urlconnection : "+urlConnection);
         urlConnection.setSSLSocketFactory(context.getSocketFactory());
         InputStream in = urlConnection.getInputStream();
-        System.out.println("Input stream=" + in);
+        System.out.println("Input stream : " + in);
         return in;
     }
 }

@@ -33,12 +33,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -309,6 +311,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         private final String mLogin;
         private final String mPassword;
+        private Boolean identification =false;
+        private String token = "";
 
         UserLoginTask(String email, String password) {
             mLogin = email;
@@ -342,34 +346,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-            Boolean identification = false;
-            String token ="";
             try {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
-
                 URL adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=LOGON&user="+mLogin+"&pass="+mPassword);
-                WebService webService = new WebService();
-                InputStream in = webService.sendRequest(adresse,LoginActivity.this);
-                System.out.println("inputstream"+in);
-                BufferedReader streamReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
-                StringBuilder responseStrBuilder = new StringBuilder();
-                String inputStr;
-                while ((inputStr = streamReader.readLine()) != null)
-                    responseStrBuilder.append(inputStr);
-                JSONObject jsonObject = new JSONObject(responseStrBuilder.toString());
-                System.out.println(jsonObject);
-                for (Iterator iterator = jsonObject.keys(); iterator.hasNext();) {
-                    Object cle = iterator.next();
-                    Object val = jsonObject.get(String.valueOf(cle));
-                    if("result".equals(cle)&&"OK".equals(val))
-                        identification = true;
-                    if("token".equals(cle))
-                        token = val.toString();
-                    System.out.println("cle=" + cle + ", valeur=" + val);
-                }
-                System.out.println("identification : "+identification);
-                System.out.println("token : "+token);
+                //WebService webService = new WebService();
+                //InputStream in = webService.sendRequest(adresse,LoginActivity.this);
+                InputStream in = WebService.sendRequest(adresse, LoginActivity.this);
+                JSONObject jsonObject = this.convertingISToJson(in);
+                this.readJson(jsonObject);
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -387,6 +373,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         }
 
+        private JSONObject convertingISToJson(InputStream in) throws IOException, JSONException {
+            BufferedReader streamReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+            StringBuilder responseStrBuilder = new StringBuilder();
+            String inputStr;
+            while ((inputStr = streamReader.readLine()) != null)
+                responseStrBuilder.append(inputStr);
+            JSONObject jsonObject = new JSONObject(responseStrBuilder.toString());
+            return  jsonObject;
+        }
+        private void readJson(JSONObject jsonObject) throws JSONException {
+            for (Iterator iterator = jsonObject.keys(); iterator.hasNext();) {
+                Object cle = iterator.next();
+                Object val = jsonObject.get(String.valueOf(cle));
+                if("result".equals(cle)&&"OK".equals(val))
+                    this.identification = true;
+                if("token".equals(cle))
+                    this.token = val.toString();
+            }
+        }
         @Override
         protected void onCancelled() {
             mAuthTask = null;
