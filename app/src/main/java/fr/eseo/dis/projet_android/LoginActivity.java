@@ -2,8 +2,11 @@ package fr.eseo.dis.projet_android;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,7 +33,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -171,10 +184,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
         }
 
         if (cancel) {
@@ -185,15 +194,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
+
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
+
         }
     }
 
-    private boolean isEmailValid(String email) {
+    //private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
+        //return email.contains("@");
+    //}
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
@@ -296,11 +307,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
+        private final String mLogin;
         private final String mPassword;
 
         UserLoginTask(String email, String password) {
-            mEmail = email;
+            mLogin = email;
             mPassword = password;
         }
 
@@ -315,13 +326,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
+            //for (String credential : DUMMY_CREDENTIALS) {
+                //String[] pieces = credential.split(":");
+                //if (pieces[0].equals(mEmail)) {
                     // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
+                  //  return pieces[1].equals(mPassword);
+                //}
+            //}
 
             // TODO: register the new account here.
             return true;
@@ -331,9 +342,45 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
+            Boolean identification = false;
+            String token ="";
+            try {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
 
-            if (success) {
-                finish();
+                URL adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=LOGON&user="+mLogin+"&pass="+mPassword);
+                WebService webService = new WebService();
+                InputStream in = webService.sendRequest(adresse,LoginActivity.this);
+                System.out.println("inputstream"+in);
+                BufferedReader streamReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+                StringBuilder responseStrBuilder = new StringBuilder();
+                String inputStr;
+                while ((inputStr = streamReader.readLine()) != null)
+                    responseStrBuilder.append(inputStr);
+                JSONObject jsonObject = new JSONObject(responseStrBuilder.toString());
+                System.out.println(jsonObject);
+                for (Iterator iterator = jsonObject.keys(); iterator.hasNext();) {
+                    Object cle = iterator.next();
+                    Object val = jsonObject.get(String.valueOf(cle));
+                    if("result".equals(cle)&&"OK".equals(val))
+                        identification = true;
+                    if("token".equals(cle))
+                        token = val.toString();
+                    System.out.println("cle=" + cle + ", valeur=" + val);
+                }
+                System.out.println("identification : "+identification);
+                System.out.println("token : "+token);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (success && identification) {
+                Intent secondeActivite = new Intent(LoginActivity.this, MenuActivity.class);
+                secondeActivite.putExtra("token",token);
+                startActivity(secondeActivite);
+                //finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
