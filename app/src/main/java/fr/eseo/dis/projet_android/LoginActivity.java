@@ -314,6 +314,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private Boolean identification =false;
         private String token = "";
 
+
         UserLoginTask(String email, String password) {
             mLogin = email;
             mPassword = password;
@@ -353,7 +354,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //WebService webService = new WebService();
                 //InputStream in = webService.sendRequest(adresse,LoginActivity.this);
                 InputStream in = WebService.sendRequest(adresse, LoginActivity.this);
-                JSONObject jsonObject = this.convertingISToJson(in);
+                JSONObject jsonObject = JSONClass.convertingISToJson(in);
                 this.readJson(jsonObject);
 
             } catch (MalformedURLException e) {
@@ -363,9 +364,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             if (success && identification) {
-                Intent secondeActivite = new Intent(LoginActivity.this, MenuActivity.class);
-                secondeActivite.putExtra("token",token);
-                startActivity(secondeActivite);
+                Intent MenuActivite = new Intent(LoginActivity.this, MenuActivity.class);
+                MenuActivite.putExtra("token",token);
+                MenuActivite.putExtra("login",mLogin);
+                startActivity(MenuActivite);
                 //finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
@@ -373,15 +375,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         }
 
-        private JSONObject convertingISToJson(InputStream in) throws IOException, JSONException {
-            BufferedReader streamReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
-            StringBuilder responseStrBuilder = new StringBuilder();
-            String inputStr;
-            while ((inputStr = streamReader.readLine()) != null)
-                responseStrBuilder.append(inputStr);
-            JSONObject jsonObject = new JSONObject(responseStrBuilder.toString());
-            return  jsonObject;
-        }
+
         private void readJson(JSONObject jsonObject) throws JSONException {
             for (Iterator iterator = jsonObject.keys(); iterator.hasNext();) {
                 Object cle = iterator.next();

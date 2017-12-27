@@ -7,10 +7,9 @@
     tools:context="fr.eseo.dis.projet_android.MenuActivity">
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:id="@+id/button_posters"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="91dp"
-        tools:layout_editor_absoluteY="32dp" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_marginTop="16dp"
+        android:text="@string/poster_menu"
+        android:textStyle="bold" /></android.support.constraint.ConstraintLayout>
