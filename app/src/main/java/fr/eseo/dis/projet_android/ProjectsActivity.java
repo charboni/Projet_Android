@@ -43,7 +43,9 @@ public class ProjectsActivity extends AppCompatActivity {
     private void loadAllProjectData(){
         projectsAdapter.setProjects(projectsList);
     }
+
     public void clickItem(Projects project) {
+        System.out.println("project : "+project.getTitle());
         //Intent intent = new Intent(this, FilmDetailsActivity.class);
         //intent.putExtra(FILM_EXTRA, film);
         //startActivity(intent);

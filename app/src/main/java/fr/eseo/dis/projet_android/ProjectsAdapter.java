@@ -50,6 +50,7 @@ public class ProjectsAdapter extends
     public void onBindViewHolder(ProjectsViewHolder holder, final int position) {
         Log.d("ProjectsAdaper", "onBindViewHolder()");
         final Projects projects = projectsList.get(position);
+
         holder.projectTitle.setText(projects.getTitle());
         holder.projectId.setText(String.valueOf(projects.getIdProject()));
         holder.projectConfi.setText(String.valueOf(projects.getConfidentiality()));
