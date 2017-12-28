@@ -15,10 +15,10 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button_posters"
+            android:id="@+id/button_projects"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/poster_menu"
+            android:text="@string/projects_menu"
             android:textStyle="bold" />
 
         <Button

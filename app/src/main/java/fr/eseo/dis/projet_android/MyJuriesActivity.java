@@ -1,8 +1,11 @@
 package fr.eseo.dis.projet_android;
 
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -25,6 +28,8 @@ public class MyJuriesActivity extends AppCompatActivity {
 
     private Users user;
     private List<Juries> myJuriesList;
+    private MyJuriesAdapter myJuriesAdapter;
+    public static final String JURY = "jury";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +64,24 @@ public class MyJuriesActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        for(int i =0;i<myJuriesList.size();i++){
+            System.out.println ("id" + myJuriesList.get(i).getIdJury());
+        }
+
+        RecyclerView recycler = (RecyclerView) findViewById(R.id.cardListJuries);
+        recycler.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recycler.setLayoutManager(llm);
+        myJuriesAdapter = new MyJuriesAdapter(this);
+        recycler.setAdapter(myJuriesAdapter);
+
+        loadAllJuriesData();
     }
+    private void loadAllJuriesData(){
+        myJuriesAdapter.setJuries(myJuriesList);
+    }
+
     public Juries createJury(org.json.simple.JSONObject json) throws ParseException {
         long idL = (long)json.get("idJury");
         int id = (int) idL;
@@ -76,5 +98,13 @@ public class MyJuriesActivity extends AppCompatActivity {
         System.out.println("description :"+descriptionJson.toJSONString());
 
         return juries;
+    }
+
+    public void clickItem(Juries juries) {
+        System.out.println("jury : "+juries.getIdJury());
+        Intent intent = new Intent(this, JuryDetailsActivity.class);
+        intent.putExtra(JURY, juries);
+        intent.putExtra("user",user);
+        startActivity(intent);
     }
 }

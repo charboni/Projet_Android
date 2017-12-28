@@ -10,12 +10,12 @@ import android.os.Parcelable;
 public class Projects implements Parcelable{
 
 
-    private long idProject;
+    private int idProject;
     private String title;
     private String description;
-    private long confidentiality;
+    private int confidentiality;
 
-    public Projects(long idProject, String title, String description, long confidentiality) {
+    public Projects(int idProject, String title, String description, int confidentiality) {
         this.idProject = idProject;
         this.title = title;
         this.description = description;
@@ -23,10 +23,10 @@ public class Projects implements Parcelable{
     }
 
     protected Projects(Parcel in) {
-        idProject = in.readLong();
+        idProject = (int) in.readLong();
         title = in.readString();
         description = in.readString();
-        confidentiality = in.readLong();
+        confidentiality = (int) in.readLong();
     }
 
     public static final Creator<Projects> CREATOR = new Creator<Projects>() {
@@ -41,7 +41,7 @@ public class Projects implements Parcelable{
         }
     };
 
-    public long getIdProject() {
+    public int getIdProject() {
         return idProject;
     }
 
@@ -65,7 +65,7 @@ public class Projects implements Parcelable{
         this.description = description;
     }
 
-    public long getConfidentiality() {
+    public int getConfidentiality() {
         return confidentiality;
     }
 

@@ -35,7 +35,8 @@
             android:label="@string/title_activity_projects"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ProjectDetailsActivity" />
-        <activity android:name=".MyJuriesActivity"></activity>
+        <activity android:name=".MyJuriesActivity" />
+        <activity android:name=".JuryDetailsActivity"></activity>
     </application>
 
 </manifest>
