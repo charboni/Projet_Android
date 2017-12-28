@@ -23,11 +23,13 @@ import java.util.List;
 
 import fr.eseo.dis.projet_android.data.ListElement;
 import fr.eseo.dis.projet_android.data.Projects;
+import fr.eseo.dis.projet_android.data.Users;
 
 public class MenuActivity extends AppCompatActivity {
 
     private String login;
     private String token;
+    private Users user;
     private List<Projects> projectsList;
 
     @Override
@@ -36,8 +38,10 @@ public class MenuActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        login = getIntent().getStringExtra("login");
-        token = getIntent().getStringExtra("token");
+        //login = getIntent().getStringExtra("login");
+        //token = getIntent().getStringExtra("token");
+        user = getIntent().getParcelableExtra("user");
+        //Button Posters
         Button mPostersButton = (Button) findViewById(R.id.button_posters);
         mPostersButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +50,7 @@ public class MenuActivity extends AppCompatActivity {
                 StrictMode.setThreadPolicy(policy);
                 URL adresse = null;
                 try {
-                    adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=LIPRJ&user="+login+"&token="+token);
+                    adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=LIPRJ&user="+user.getUsername()+"&token="+user.getToken());
                     InputStream in = WebService.sendRequest(adresse, MenuActivity.this);
                     JSONObject jsonObject = JSONClass.convertingISToJson(in);
                     JSONParser parser = new JSONParser();
@@ -79,6 +83,16 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(projectsActivity);
             }
         }
+        );
+        //Button MyJuries
+        Button mMyJuriesButton = (Button) findViewById(R.id.button_juries);
+        mMyJuriesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent projectsActivity = new Intent(MenuActivity.this, MyJuriesActivity.class);
+                projectsActivity.putExtra("user",user);
+                startActivity(projectsActivity);
+            }}
         );
     }
     public Projects createProject(org.json.simple.JSONObject json){

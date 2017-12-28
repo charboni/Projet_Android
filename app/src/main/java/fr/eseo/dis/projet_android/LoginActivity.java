@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Parcelable;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -46,6 +47,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import fr.eseo.dis.projet_android.data.Users;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -364,10 +367,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             if (success && identification) {
-                Intent MenuActivite = new Intent(LoginActivity.this, MenuActivity.class);
-                MenuActivite.putExtra("token",token);
-                MenuActivite.putExtra("login",mLogin);
-                startActivity(MenuActivite);
+                Intent MenuActivity = new Intent(LoginActivity.this, MenuActivity.class);
+                Users user = new Users();
+                user.setUsername(mLogin);
+                user.setToken(token);
+                //MenuActivite.putExtra("token",token);
+                //MenuActivite.putExtra("login",mLogin);
+                MenuActivity.putExtra("user", user);
+                startActivity(MenuActivity);
                 //finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

@@ -54,7 +54,12 @@ public class ProjectsAdapter extends
         holder.projectTitle.setText(projects.getTitle());
         holder.projectId.setText(String.valueOf(projects.getIdProject()));
         holder.projectConfi.setText(String.valueOf(projects.getConfidentiality()));
-        holder.projectDesc.setText(projects.getDescription());
+
+        String description = projects.getDescription();
+        if(projects.getDescription().length()>101){
+            description = projects.getDescription().substring(0,100)+"...";
+        }
+        holder.projectDesc.setText(description);
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override

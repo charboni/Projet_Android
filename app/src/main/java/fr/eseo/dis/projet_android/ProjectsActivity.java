@@ -19,6 +19,8 @@ public class ProjectsActivity extends AppCompatActivity {
 
     private ProjectsAdapter projectsAdapter;
     private List<Projects> projectsList;
+    public static final String PROJECT = "project";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +48,8 @@ public class ProjectsActivity extends AppCompatActivity {
 
     public void clickItem(Projects project) {
         System.out.println("project : "+project.getTitle());
-        //Intent intent = new Intent(this, FilmDetailsActivity.class);
-        //intent.putExtra(FILM_EXTRA, film);
-        //startActivity(intent);
+        Intent intent = new Intent(this, ProjectDetailsActivity.class);
+        intent.putExtra(PROJECT, project);
+        startActivity(intent);
     }
 }

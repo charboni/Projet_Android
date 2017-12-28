@@ -1,10 +1,13 @@
 package fr.eseo.dis.projet_android.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Gregoire on 20/12/2017.
  */
 
-public class Users {
+public class Users implements Parcelable {
 
     private int idUser;
     private String username;
@@ -12,7 +15,11 @@ public class Users {
     private char password;
     private String forename;
     private String surname;
+    private String token;
 
+    public Users(){
+
+    }
     public Users(int idUser, String username, char salt, char password, String forename, String surname) {
         this.idUser = idUser;
         this.username = username;
@@ -21,6 +28,28 @@ public class Users {
         this.forename = forename;
         this.surname = surname;
     }
+
+    protected Users(Parcel in) {
+        idUser = in.readInt();
+        username = in.readString();
+        salt = (char) in.readInt();
+        password = (char) in.readInt();
+        forename = in.readString();
+        surname = in.readString();
+        token = in.readString();
+    }
+
+    public static final Creator<Users> CREATOR = new Creator<Users>() {
+        @Override
+        public Users createFromParcel(Parcel in) {
+            return new Users(in);
+        }
+
+        @Override
+        public Users[] newArray(int size) {
+            return new Users[size];
+        }
+    };
 
     public int getIdUser() {
         return idUser;
@@ -68,5 +97,29 @@ public class Users {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idUser);
+        dest.writeString(username);
+        dest.writeInt((int) salt);
+        dest.writeInt((int) password);
+        dest.writeString(forename);
+        dest.writeString(surname);
+        dest.writeString(token);
     }
 }
