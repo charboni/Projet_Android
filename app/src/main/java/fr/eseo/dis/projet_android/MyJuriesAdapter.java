@@ -51,9 +51,9 @@ public class MyJuriesAdapter extends
         Log.d("ProjectsAdaper", "onBindViewHolder()");
         final Juries juries = myJuriesList.get(position);
 
-        holder.juryId.setText(String.valueOf(juries.getIdJury()));
-        holder.juryDate.setText(juries.getDate().toString());
-        //holder.juryDesc.setText(juries.getDescription());
+        holder.juryId.setText("JURY "+String.valueOf(juries.getIdJury()));
+        holder.juryDate.setText("Date création : "+juries.getDate().toString());
+        holder.juryDesc.setText("");
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override

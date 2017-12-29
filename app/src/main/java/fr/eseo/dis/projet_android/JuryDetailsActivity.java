@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 import fr.eseo.dis.projet_android.data.Juries;
+import fr.eseo.dis.projet_android.data.Posters;
 import fr.eseo.dis.projet_android.data.Projects;
 import fr.eseo.dis.projet_android.data.Supervisors;
 import fr.eseo.dis.projet_android.data.Teams;
@@ -30,8 +31,9 @@ public class JuryDetailsActivity extends AppCompatActivity {
     private Juries jury;
     private Users user;
     private List<Projects> projectsList;
-    //private List<Supervisors> supervisorsList;
+    private HashMap<String, ArrayList<Users>> studentsProjectList;
     private HashMap<String, String> supervisorsList;
+    private List<Posters> existPostersList;
     public static final String PROJECT = "project";
 
     @Override
@@ -55,7 +57,9 @@ public class JuryDetailsActivity extends AppCompatActivity {
                 System.out.println("cle : " + cle +" val : "+val);
                 if("projects".equals(cle)) {
                     projectsList = new ArrayList<Projects>();
+                    existPostersList = new ArrayList<Posters>();
                     supervisorsList = new HashMap<String, String>();
+                    studentsProjectList = new HashMap<String, ArrayList<Users>>();
                     //supervisorsList = new ArrayList<Supervisors>();
                     jsonArray = (org.json.simple.JSONArray) parser.parse(val.toString()); //list of my juries
                     System.out.println("jsonArray  : "+jsonArray);
@@ -84,7 +88,6 @@ public class JuryDetailsActivity extends AppCompatActivity {
         loadAllProjectData();
     }
     public Projects createProject(org.json.simple.JSONObject json){
-        org.json.simple.JSONObject supervisName = (org.json.simple.JSONObject)json.get("supervisor");
         long idL = (long)json.get("projectId");
         int id = (int)idL;
         String title = (String)json.get("title");
@@ -92,29 +95,39 @@ public class JuryDetailsActivity extends AppCompatActivity {
         long confidentialityL = (long)json.get("confid");
         int confidentiality =(int)confidentialityL;
         Projects projects = new Projects(id, title, description, confidentiality);
-        Teams team = new Teams(projects.getIdProject(),0);
 
-        //JSONParser jsonParser = new JSONParser();
+        org.json.simple.JSONObject supervisName = (org.json.simple.JSONObject)json.get("supervisor");
+        org.json.simple.JSONArray studentsArray = (org.json.simple.JSONArray)json.get("students");
+        ArrayList<Users> studentsList = createListUsers(studentsArray);
+        studentsProjectList.put(String.valueOf(projects.getIdProject()),studentsList);
         String surname = (String)supervisName.get("1"); //BUG wtf
         String forename = (String)supervisName.get("forename");
         String supervisor = surname + " "+forename;
         supervisorsList.put(String.valueOf(projects.getIdProject()),supervisor);
-        System.out.println(supervisName);
-        System.out.println("surname : "+surname);
-        System.out.println("forename : "+forename);
-        System.out.println("id "+id);
-        System.out.println("title "+title);
-        System.out.println("description "+description);
-        System.out.println("confidentiality "+confidentiality);
+        boolean existPoster = (boolean)json.get("poster");
+        if(existPoster){
+            Posters poster = new Posters(0,projects.getIdProject(),"");
+            existPostersList.add(poster);
+        }
         return projects;
     }
-
+    private ArrayList<Users> createListUsers(org.json.simple.JSONArray jsonArray){
+        ArrayList<Users> listStudents = new ArrayList<Users>();
+        for(int i = 0; i<jsonArray.size();i++){
+            org.json.simple.JSONObject json = (org.json.simple.JSONObject)jsonArray.get(i);//one project
+            Users user = new Users();
+            user.setIdUser((int)(long)json.get("userId"));
+            user.setForename((String)json.get("forename"));
+            user.setSurname((String)json.get("surname"));
+            listStudents.add(user);
+        }
+        return listStudents;
+    }
     private void loadAllProjectData(){
         juryDetailsAdapter.setProjects(projectsList);
     }
 
     public void clickItem(Projects project) {
-        System.out.println("project : "+project.getTitle());
         Intent intent = new Intent(this, ProjectDetailsActivity.class);
         intent.putExtra(PROJECT, project);
         String supervisor = "";
@@ -127,6 +140,25 @@ public class JuryDetailsActivity extends AppCompatActivity {
             }
         }
         intent.putExtra("supervisor",supervisor);
+        ArrayList<Users> studentsList = new ArrayList<Users>();
+        Set clesListStudents = studentsProjectList.keySet();
+        Iterator it2 = cles.iterator();
+        while (it2.hasNext()){
+            Object cle = it2.next();
+            if(String.valueOf(project.getIdProject()).equals(cle)){
+                studentsList = studentsProjectList.get(cle);
+            }
+        }
+        intent.putParcelableArrayListExtra("studentsList",studentsList);
+        boolean existPoster = false;
+        for(int i=0;i<existPostersList.size();i++){
+            if(existPostersList.get(i).getProject()==project.getIdProject()){
+                existPoster=true;
+            }
+        }
+        System.out.println("Poster : "+existPoster);
+        intent.putExtra("existPoster",existPoster);
+        intent.putExtra("user",user);
         startActivity(intent);
     }
 

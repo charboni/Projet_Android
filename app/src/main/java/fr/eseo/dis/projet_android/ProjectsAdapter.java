@@ -51,9 +51,9 @@ public class ProjectsAdapter extends
         Log.d("ProjectsAdaper", "onBindViewHolder()");
         final Projects projects = projectsList.get(position);
 
-        holder.projectTitle.setText(projects.getTitle());
-        holder.projectId.setText(String.valueOf(projects.getIdProject()));
-        holder.projectConfi.setText(String.valueOf(projects.getConfidentiality()));
+        holder.projectTitle.setText("PROJECT : "+projects.getTitle());
+        holder.projectId.setText("ID  :"+String.valueOf(projects.getIdProject()));
+        holder.projectConfi.setText("Confidentiality : "+String.valueOf(projects.getConfidentiality()));
 
         String description = projects.getDescription();
         if(projects.getDescription().length()>101){
