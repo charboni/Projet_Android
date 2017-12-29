@@ -36,7 +36,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ProjectDetailsActivity" />
         <activity android:name=".MyJuriesActivity" />
-        <activity android:name=".JuryDetailsActivity"></activity>
+        <activity android:name=".JuryDetailsActivity" />
+        <activity android:name=".StudentNotationActivity"></activity>
     </application>
 
 </manifest>

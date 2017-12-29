@@ -1,7 +1,14 @@
 package fr.eseo.dis.projet_android;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.drawable.Icon;
 import android.media.Image;
 import android.os.StrictMode;
@@ -9,10 +16,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,13 +44,16 @@ public class ProjectDetailsActivity extends AppCompatActivity {
     private  String superviseur;
     private boolean existPoster;
     private ArrayList<Users> studentsList;
+    private Animator mCurrentAnimator;
 
+    private int mShortAnimationDuration;
     private TextView title;
     private TextView id;
     private TextView confidentiality;
     private TextView supervisor;
     private TextView resume;
     private ImageView imgPoster;
+    private TextView descPoster;
     private ProjectStudentsAdapter psa;
 
     @Override
@@ -57,6 +73,7 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         supervisor = (TextView) findViewById(R.id.project_details_superviseur);
         resume = (TextView) findViewById(R.id.project_details_resume);
         imgPoster = (ImageView) findViewById(R.id.project_poster);
+        descPoster = (TextView) findViewById(R.id.project_poster_desc);
         title.setText(project.getTitle());
         id.setText("ID : "+String.valueOf(project.getIdProject()));
         confidentiality.setText("Confidentiality : " +project.getConfidentiality());
@@ -69,7 +86,8 @@ public class ProjectDetailsActivity extends AppCompatActivity {
             try {
                 adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=POSTR&user="+user.getUsername()+"&proj="+project.getIdProject()+"&style=FULL"+"&token="+user.getToken());
                 InputStream in = WebService.sendRequest(adresse, ProjectDetailsActivity.this);
-                Bitmap poster = BitmapFactory.decodeStream(in);
+                descPoster.setText("");
+                final Bitmap poster = BitmapFactory.decodeStream(in);
                 imgPoster.setImageBitmap(poster);
 
             } catch (Exception e) {
@@ -92,5 +110,10 @@ public class ProjectDetailsActivity extends AppCompatActivity {
 
     public void clickItem(Users student) {
         System.out.println(student.getForename() + " "+student.getSurname()+" "+student.getIdUser());
+        Intent intent = new Intent(this, StudentNotationActivity.class);
+        intent.putExtra("student", student);
+        intent.putExtra("user",user);
+        startActivity(intent);
     }
+
 }

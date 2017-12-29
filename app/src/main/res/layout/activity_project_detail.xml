@@ -83,9 +83,8 @@
                         android:id="@+id/project_details_resume_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
+                        android:textSize="18sp"
                         android:padding="2dp"
-                        android:textColor="@color/colorPrimaryDark"
                         android:text="Resume:"
                         android:layout_weight="1" />
                     <TextView
@@ -100,11 +99,28 @@
                         android:textColor="@color/colorPrimary"
                         android:text="Monty Python and the Holy Grail',1975,33,'Comédie','Le roi Arthur et les Chevaliers de la Table Ronde se lancent à la conquête du Graal, chevauchant de fantômatiques montures dans un bruitage de noix de coco cognées. La petite troupe va devoir passer mille épreuves, dont un chevalier à trois têtes, des jouvencelles en chaleur, voire même un terrible lapin tueur."
                         android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/project_poster_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:padding="2dp"
+                        android:text="Poster :"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/project_poster_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:padding="2dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="Aucun Poster."
+                        android:layout_weight="1" />
                     <ImageView
                         android:id="@+id/project_poster"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                         />
+                        android:layout_height="match_parent"/>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingLeft="6dp"
+    android:paddingRight="6dp"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
+    android:background="@color/colorPrimaryLight"
+    tools:context="fr.eseo.dis.projet_android.StudentNotationActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:elevation="6dp">
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:padding="4dp"
+                >
+                <TextView
+                    android:id="@+id/student_notation_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="36sp"
+                    android:padding="2dp"
+                    android:minLines="2"
+                    android:maxLines="4"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="Monty Python And The Quest For The Holy Grail"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/student_notation_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:padding="2dp"
+                        android:layout_weight="1"
+                        android:textAlignment="textEnd"
+                        android:text="ID : 1"
+                        android:gravity="end" />
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/student_notation_label"
+                    android:padding="2dp"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="NOTATION : "/>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+    </ScrollView>
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="149dp"
+        android:layout_marginEnd="275dp"
+        android:layout_marginRight="275dp"
+        android:ems="10"
+        android:inputType="number" />
+
+</RelativeLayout>
+
