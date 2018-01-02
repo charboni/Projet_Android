@@ -51,6 +51,22 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/student_notation_moyenne"
+                    android:padding="2dp"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="NOTE MOYENNE : "/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/student_notation_mine"
+                    android:padding="2dp"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="Ma Note : "/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/student_notation_label"
                     android:padding="2dp"
                     android:textSize="24sp"
@@ -69,9 +85,18 @@
                     android:ems="10"
                     android:inputType="numberDecimal" />
                 <Button
+                    android:id="@+id/valid_note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Valider"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/student_notation_final"
+                    android:padding="2dp"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text=""/>
 
             </LinearLayout>
 

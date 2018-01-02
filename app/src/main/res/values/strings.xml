@@ -19,5 +19,8 @@
     <string name="title_activity_posters">PostersActivity</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_projects">ProjectsActivity</string>
-    <string name="juries_menu">MyJuries</string>
+    <string name="juries_menu">My Juries</string>
+    <string name="myprojects_menu">My Projects</string>
+    <string name="alljuries_menu">Juries</string>
+    <string name="jpo_menu">Portes Ouvertes</string>
 </resources>

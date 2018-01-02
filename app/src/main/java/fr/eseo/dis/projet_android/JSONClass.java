@@ -20,6 +20,7 @@ public class JSONClass {
         String inputStr;
         while ((inputStr = streamReader.readLine()) != null)
             responseStrBuilder.append(inputStr);
+
         JSONObject jsonObject = new JSONObject(responseStrBuilder.toString());
         return  jsonObject;
     }

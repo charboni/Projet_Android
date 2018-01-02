@@ -20,6 +20,12 @@
             android:layout_height="wrap_content"
             android:text="@string/projects_menu"
             android:textStyle="bold" />
+        <Button
+            android:id="@+id/button_alljuries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/alljuries_menu"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/button_juries"
@@ -27,5 +33,19 @@
             android:layout_height="wrap_content"
             android:text="@string/juries_menu"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button_myprojects"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/myprojects_menu"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/button_jpo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/jpo_menu"
+            android:textStyle="bold" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

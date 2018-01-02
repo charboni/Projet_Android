@@ -27,6 +27,7 @@ import fr.eseo.dis.projet_android.data.Users;
 public class MyJuriesActivity extends AppCompatActivity {
 
     private Users user;
+    private  String type;
     private List<Juries> myJuriesList;
     private MyJuriesAdapter myJuriesAdapter;
     public static final String JURY = "jury";
@@ -36,11 +37,17 @@ public class MyJuriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_juries);
         user = getIntent().getParcelableExtra("user");
+        type = getIntent().getStringExtra("type");
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         URL adresse = null;
         try {
-            adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=MYJUR&user="+user.getUsername()+"&token="+user.getToken());
+            if ("mine".equals(type)) {
+                adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=MYJUR&user="+user.getUsername()+"&token="+user.getToken());
+            }
+            if("all".equals(type)){
+                adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=LIJUR&user="+user.getUsername()+"&token="+user.getToken());
+            }
             InputStream in = WebService.sendRequest(adresse, MyJuriesActivity.this);
             JSONObject jsonObject = JSONClass.convertingISToJson(in);
             JSONParser parser = new JSONParser();

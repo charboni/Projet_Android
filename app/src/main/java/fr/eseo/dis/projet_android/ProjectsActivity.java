@@ -45,11 +45,20 @@ public class ProjectsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projects);
         user = getIntent().getParcelableExtra("user");
+        String type = getIntent().getStringExtra("type");
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         URL adresse = null;
         try {
-            adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=LIPRJ&user="+user.getUsername()+"&token="+user.getToken());
+            if("all".equals(type)){
+                adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=LIPRJ&user="+user.getUsername()+"&token="+user.getToken());
+            }
+            if("mine".equals(type)){
+                adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=MYPRJ&user="+user.getUsername()+"&token="+user.getToken());
+            }
+            if("jpo".equals(type)){
+                adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=PORTE&user="+user.getUsername()+"&seed=optional&token="+user.getToken());
+            }
             InputStream in = WebService.sendRequest(adresse, ProjectsActivity.this);
             JSONObject jsonObject = JSONClass.convertingISToJson(in);
             JSONParser parser = new JSONParser();
