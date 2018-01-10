@@ -37,7 +37,9 @@
         <activity android:name=".ProjectDetailsActivity" />
         <activity android:name=".MyJuriesActivity" />
         <activity android:name=".JuryDetailsActivity" />
-        <activity android:name=".StudentNotationActivity"></activity>
+        <activity android:name=".StudentNotationActivity" />
+        <activity android:name=".JPOActivity" />
+        <activity android:name=".JPOProjectDetailsActivity"></activity>
     </application>
 
 </manifest>

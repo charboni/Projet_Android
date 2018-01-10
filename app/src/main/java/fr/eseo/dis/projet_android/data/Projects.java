@@ -15,6 +15,10 @@ public class Projects implements Parcelable{
     private String description;
     private int confidentiality;
 
+    public Projects(){
+
+    }
+
     public Projects(int idProject, String title, String description, int confidentiality) {
         this.idProject = idProject;
         this.title = title;
