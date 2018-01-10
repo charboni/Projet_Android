@@ -93,17 +93,24 @@ public class MyJuriesActivity extends AppCompatActivity {
         long idL = (long)json.get("idJury");
         int id = (int) idL;
         org.json.simple.JSONObject descriptionJson = (org.json.simple.JSONObject)json.get("info");
-        JSONParser jsonParser = new JSONParser();
+        org.json.simple.JSONArray membres = (org.json.simple.JSONArray)descriptionJson.get("members");
+        String description = "";
+        for(int i =0; i<membres.size();i++){
+            description +="\n - ";
+            org.json.simple.JSONObject json2 = (org.json.simple.JSONObject)membres.get(i);//one project
+            String surname = (String)json2.get("surname");
+            String forename = (String)json2.get("forename");
+            description += surname + " " +forename;
+        }
         String dateStr = (String)json.get("date");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date date = df.parse(dateStr);
 
-        Juries juries = new Juries(id,descriptionJson.toJSONString(),date);
+        Juries juries = new Juries(id,description,date);
         return juries;
     }
 
     public void clickItem(Juries juries) {
-        System.out.println("jury : "+juries.getIdJury());
         Intent intent = new Intent(this, JuryDetailsActivity.class);
         intent.putExtra(JURY, juries);
         intent.putExtra("user",user);

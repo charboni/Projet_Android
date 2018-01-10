@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Android_Project</string>
-    <string name="title_activity_login">Connexion</string>
+    <string name="title_activity_login">SoManager</string>
 
     <!-- Strings related to login -->
     <string name="prompt_name">SoManager</string>
