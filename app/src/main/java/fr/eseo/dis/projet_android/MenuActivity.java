@@ -54,6 +54,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         }
         );
+
         //Button MyJuries
         Button mMyJuriesButton = (Button) findViewById(R.id.button_juries);
         mMyJuriesButton.setOnClickListener(new View.OnClickListener() {

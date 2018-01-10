@@ -53,7 +53,7 @@ public class MyJuriesAdapter extends
 
         holder.juryId.setText("JURY "+String.valueOf(juries.getIdJury()));
         holder.juryDate.setText("Date soutenance : "+juries.getDate().toString());
-        holder.juryDesc.setText("Membres : "+juries.getDescription());
+        holder.juryDesc.setText("");
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override

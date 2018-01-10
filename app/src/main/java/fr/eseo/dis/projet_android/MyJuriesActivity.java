@@ -99,11 +99,6 @@ public class MyJuriesActivity extends AppCompatActivity {
         Date date = df.parse(dateStr);
 
         Juries juries = new Juries(id,descriptionJson.toJSONString(),date);
-
-        System.out.println("id :"+id);
-        System.out.println("date :"+dateStr);
-        System.out.println("description :"+descriptionJson.toJSONString());
-
         return juries;
     }
 
