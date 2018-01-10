@@ -28,10 +28,11 @@ public class Projects implements Parcelable{
     }
 
     protected Projects(Parcel in) {
-        idProject = (int) in.readLong();
+        poster = in.readString();
+        idProject = in.readInt();
         title = in.readString();
         description = in.readString();
-        confidentiality = (int) in.readLong();
+        confidentiality = in.readInt();
     }
 
     public static final Creator<Projects> CREATOR = new Creator<Projects>() {
@@ -89,9 +90,10 @@ public class Projects implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(idProject);
+        dest.writeString(poster);
+        dest.writeInt(idProject);
         dest.writeString(title);
         dest.writeString(description);
-        dest.writeLong(confidentiality);
+        dest.writeInt(confidentiality);
     }
 }

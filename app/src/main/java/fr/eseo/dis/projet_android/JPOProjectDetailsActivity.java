@@ -30,33 +30,35 @@ import fr.eseo.dis.projet_android.data.Users;
 public class JPOProjectDetailsActivity extends AppCompatActivity {
 
     private Users user;
-    private Projects project;
-
+    private Projects projects;
+    private String poster;
     private TextView title;
     private TextView id;
     private TextView resume;
     private ImageView imgPoster;
     private TextView descPoster;
-    private ProjectStudentsAdapter psa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jpoproject_details);
-        user = getIntent().getParcelableExtra("user");
-
-        project = getIntent().getParcelableExtra("project");
-        Log.d("JpoProjectsAdapter", "Tets jpo details : " + project.getPoster());
+        user = (Users)getIntent().getParcelableExtra("user");
+        projects = (Projects)getIntent().getParcelableExtra("project");
         title = (TextView) findViewById(R.id.jpo_project_details_title);
         id = (TextView) findViewById(R.id.jpo_project_details_id);
         resume = (TextView) findViewById(R.id.jpo_project_details_resume);
         descPoster = (TextView) findViewById(R.id.jpo_project_poster_desc);
-        id.setText("ID : "+project.getIdProject());
-        resume.setText(project.getDescription());
-        title.setText("Titre : " + project.getTitle());
-        if(project.getPoster()!=null) {
+        Log.d("JpoProjectsAdapter", "Tets jpo details : " + projects.getIdProject());
+        Log.d("JpoProjectsAdapter", "Tets jpo details : " + projects.getDescription());
+        Log.d("JpoProjectsAdapter", "Tets jpo details : " + projects.getTitle());
+        Log.d("JpoProjectsAdapter", "Tets jpo details : " + projects.getPoster());
+        id.setText("ID : "+projects.getIdProject());
+        resume.setText(projects.getDescription());
+        title.setText("Titre : " + projects.getTitle());
+        if(projects.getPoster()!=null) {
+            descPoster.setText("");
             imgPoster = (ImageView) findViewById(R.id.jpo_project_poster);
-            byte[] decodedString = Base64.decode(project.getPoster(), Base64.DEFAULT);
+            byte[] decodedString = Base64.decode(projects.getPoster(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
             imgPoster.setImageBitmap(decodedByte);
         }

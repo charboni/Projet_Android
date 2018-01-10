@@ -40,7 +40,7 @@ public class JPOActivity extends AppCompatActivity {
         URL adresse = null;
         try {
 
-            adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=PORTE&user="+user.getUsername()+"&seed=FULL"+"&token="+user.getToken());
+            adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=PORTE&user="+user.getUsername()+"&token="+user.getToken());
 
             InputStream in = WebService.sendRequest(adresse, JPOActivity.this);
             JSONObject jsonObject = JSONClass.convertingISToJson(in);
@@ -53,15 +53,12 @@ public class JPOActivity extends AppCompatActivity {
                 if("projects".equals(cle)) {
                     jpoProjectsList = new ArrayList<Projects>();
                     jsonArray = (org.json.simple.JSONArray) parser.parse(val.toString()); //list of all random projects
-                    System.out.println("jsonArray  : "+jsonArray);
                 }
             }
             for(int i = 0; i<jsonArray.size();i++){
                 org.json.simple.JSONObject json = (org.json.simple.JSONObject)jsonArray.get(i);//one project
-                System.out.println("jsonObject  : "+i+ " : "+json);
                 Projects projects = createProject(json);
                 jpoProjectsList.add(projects);
-                System.out.print("Test 0 " + projects);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,13 +80,12 @@ public class JPOActivity extends AppCompatActivity {
     }
 
     private Projects createProject(org.json.simple.JSONObject json) throws JSONException {
-
         Projects projects = new Projects();
-
+        projects.setPoster((String)json.get("poster"));
         projects.setIdProject((int)(long)json.get("idProject"));
         projects.setTitle((String)json.get("title"));
         projects.setDescription((String)json.get("description"));
-        projects.setPoster((String)json.get("poster"));
+
         Log.d("Poster", ""+ projects.getPoster());
         return projects;
     }
@@ -100,7 +96,7 @@ public class JPOActivity extends AppCompatActivity {
         Intent intent = new Intent(this, JPOProjectDetailsActivity.class);
         intent.putExtra("project", projects);
         //System.out.print("Test 2"+projects);
-        Log.d("Poster2", ""+ projects.getPoster());
+        Log.d("Poster click", ""+ projects.getPoster());
         startActivity(intent);
     }
 }

@@ -64,6 +64,7 @@ public class JPOAdapter extends
             @Override
             public void onClick(View v) {
                 Log.d("JpoProjectsAdapter", "Item 'clicked'");
+                Log.d("JpoProjectsViewHolder", "Projects4 "+ projects.getPoster());
                 activity.clickItem(projects);
                 Log.d("Test Adapter", ""+projects);
 
