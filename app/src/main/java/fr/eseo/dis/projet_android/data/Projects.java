@@ -2,6 +2,7 @@ package fr.eseo.dis.projet_android.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Base64;
 
 /**
  * Created by Gregoire on 20/12/2017.
@@ -9,7 +10,7 @@ import android.os.Parcelable;
 
 public class Projects implements Parcelable{
 
-
+    private String poster;
     private int idProject;
     private String title;
     private String description;
@@ -76,6 +77,10 @@ public class Projects implements Parcelable{
     public void setConfidentiality(int confidentiality) {
         this.confidentiality = confidentiality;
     }
+
+    public String getPoster() { return this.poster; }
+
+    public void setPoster(String poster){ this.poster = poster; }
 
     @Override
     public int describeContents() {

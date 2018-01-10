@@ -39,4 +39,5 @@ public class Posters {
     public void setFilepathPDF(String filepathPDF) {
         this.filepathPDF = filepathPDF;
     }
+
 }

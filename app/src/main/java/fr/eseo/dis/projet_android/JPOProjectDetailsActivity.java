@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,20 +42,23 @@ public class JPOProjectDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_project_detail);
+        setContentView(R.layout.activity_jpoproject_details);
         user = getIntent().getParcelableExtra("user");
+
         project = getIntent().getParcelableExtra("project");
-        System.out.print("Tets jpo details : " + project);
+        Log.d("JpoProjectsAdapter", "Tets jpo details : " + project.getPoster());
         title = (TextView) findViewById(R.id.jpo_project_details_title);
         id = (TextView) findViewById(R.id.jpo_project_details_id);
         resume = (TextView) findViewById(R.id.jpo_project_details_resume);
-        imgPoster = (ImageView) findViewById(R.id.jpo_project_poster);
         descPoster = (TextView) findViewById(R.id.jpo_project_poster_desc);
         id.setText("ID : "+project.getIdProject());
         resume.setText(project.getDescription());
         title.setText("Titre : " + project.getTitle());
-
+        if(project.getPoster()!=null) {
+            imgPoster = (ImageView) findViewById(R.id.jpo_project_poster);
+            byte[] decodedString = Base64.decode(project.getPoster(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
+            imgPoster.setImageBitmap(decodedByte);
+        }
     }
-
-
 }

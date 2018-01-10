@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -88,7 +89,8 @@ public class JPOActivity extends AppCompatActivity {
         projects.setIdProject((int)(long)json.get("idProject"));
         projects.setTitle((String)json.get("title"));
         projects.setDescription((String)json.get("description"));
-
+        projects.setPoster((String)json.get("poster"));
+        Log.d("Poster", ""+ projects.getPoster());
         return projects;
     }
 
@@ -98,6 +100,7 @@ public class JPOActivity extends AppCompatActivity {
         Intent intent = new Intent(this, JPOProjectDetailsActivity.class);
         intent.putExtra("project", projects);
         //System.out.print("Test 2"+projects);
+        Log.d("Poster2", ""+ projects.getPoster());
         startActivity(intent);
     }
 }

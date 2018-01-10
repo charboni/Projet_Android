@@ -77,14 +77,19 @@ public class MenuActivity extends AppCompatActivity {
             }}
         );
         Button mJpoButton = (Button) findViewById(R.id.button_jpo);
-        mJpoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent jpoProjectsActivity = new Intent(MenuActivity.this, JPOActivity.class);
-                jpoProjectsActivity.putExtra("user",user);
-                startActivity(jpoProjectsActivity);
-            }}
-        );
+        mJpoButton.setVisibility(View.INVISIBLE);
+        if("jpo".equals(user.getUsername())) {
+            mJpoButton.setVisibility(View.VISIBLE);
+            mJpoButton.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(View view) {
+                                                  Intent jpoProjectsActivity = new Intent(MenuActivity.this, JPOActivity.class);
+                                                  jpoProjectsActivity.putExtra("user", user);
+                                                  startActivity(jpoProjectsActivity);
+                                              }
+                                          }
+            );
+        }
     }
 
 }
