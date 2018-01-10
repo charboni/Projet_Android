@@ -54,16 +54,6 @@ public class MenuActivity extends AppCompatActivity {
             }
         }
         );
-        Button mAllJuriesButton = (Button) findViewById(R.id.button_alljuries);
-        mAllJuriesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent projectsActivity = new Intent(MenuActivity.this, MyJuriesActivity.class);
-                projectsActivity.putExtra("user",user);
-                projectsActivity.putExtra("type","all");
-                startActivity(projectsActivity);
-            }}
-        );
         //Button MyJuries
         Button mMyJuriesButton = (Button) findViewById(R.id.button_juries);
         mMyJuriesButton.setOnClickListener(new View.OnClickListener() {
