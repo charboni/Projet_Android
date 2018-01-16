@@ -95,7 +95,13 @@ public class ProjectDetailsActivity extends AppCompatActivity {
             URL adresse = null;
             URL adresseNotes = null;
             try {
-
+                if(existPoster) {
+                    adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=POSTR&user=" + user.getUsername() + "&proj=" + project.getIdProject() + "&style=FULL" + "&token=" + user.getToken());
+                    InputStream in = WebService.sendRequest(adresse, ProjectDetailsActivity.this);
+                    descPoster.setText("");
+                    final Bitmap poster = BitmapFactory.decodeStream(in);
+                    imgPoster.setImageBitmap(poster);
+                }
                 adresseNotes = new URL("https://192.168.4.10/www/pfe/webservice.php?q=NOTES&user="+user.getUsername()+"&proj="+project.getIdProject()+"&token="+user.getToken());
                 InputStream inN = WebService.sendRequest(adresseNotes, ProjectDetailsActivity.this);
                 JSONObject jsonObject = JSONClass.convertingISToJson(inN);
@@ -111,22 +117,17 @@ public class ProjectDetailsActivity extends AppCompatActivity {
                         System.out.println("jsonArray  : "+jsonArray);
                     }
                 }
-                for(int i = 0; i<jsonArray.size();i++){
-                    org.json.simple.JSONObject json = (org.json.simple.JSONObject)jsonArray.get(i);//one project
-                    System.out.println("jsonObject  : "+i+ " : "+json);
-                    MarksPresentationsStudents mark = createMark(json);
-                    marksList.add(mark);
-                    System.out.println("list size : "+marksList.size());
+                if(jsonArray!=null) {
+                    for (int i = 0; i < jsonArray.size(); i++) {
+                        org.json.simple.JSONObject json = (org.json.simple.JSONObject) jsonArray.get(i);//one project
+                        System.out.println("jsonObject  : " + i + " : " + json);
+                        MarksPresentationsStudents mark = createMark(json);
+                        marksList.add(mark);
+                        System.out.println("list size : " + marksList.size());
+                    }
                 }
 
 
-                if(existPoster) {
-                    adresse = new URL("https://192.168.4.10/www/pfe/webservice.php?q=POSTR&user=" + user.getUsername() + "&proj=" + project.getIdProject() + "&style=FULL" + "&token=" + user.getToken());
-                    InputStream in = WebService.sendRequest(adresse, ProjectDetailsActivity.this);
-                    descPoster.setText("");
-                    final Bitmap poster = BitmapFactory.decodeStream(in);
-                    imgPoster.setImageBitmap(poster);
-                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

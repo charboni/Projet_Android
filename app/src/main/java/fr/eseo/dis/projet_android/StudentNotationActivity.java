@@ -72,6 +72,7 @@ public class StudentNotationActivity extends AppCompatActivity {
             studentLabelNotation.setText("");
             note.setEnabled(false);
             valid_note.setVisibility(View.INVISIBLE);
+            note.setVisibility(View.INVISIBLE);
         }
 
         valid_note.setOnClickListener(new View.OnClickListener() {
