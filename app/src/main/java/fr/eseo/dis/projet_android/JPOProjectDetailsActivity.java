@@ -49,9 +49,7 @@ public class JPOProjectDetailsActivity extends AppCompatActivity {
         resume = (TextView) findViewById(R.id.jpo_project_details_resume);
         descPoster = (TextView) findViewById(R.id.jpo_project_poster_desc);
         Log.d("JpoProjectsAdapter", "Tets jpo details : " + projects.getIdProject());
-        Log.d("JpoProjectsAdapter", "Tets jpo details : " + projects.getDescription());
-        Log.d("JpoProjectsAdapter", "Tets jpo details : " + projects.getTitle());
-        Log.d("JpoProjectsAdapter", "Tets jpo details : " + projects.getPoster());
+
         id.setText("ID : "+projects.getIdProject());
         resume.setText(projects.getDescription());
         title.setText("Titre : " + projects.getTitle());

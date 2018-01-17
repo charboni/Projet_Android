@@ -151,14 +151,17 @@ public class StudentNotationActivity extends AppCompatActivity {
     }
     private boolean verifyNote(){
         note = (EditText) findViewById(R.id.editText_note);
-        String noteStr = note.getText().toString();
-        noteStudent = Double.parseDouble(noteStr);
-        System.out.println("note : "+noteStudent);
         boolean success = false;
-        if(noteStudent>=0 && noteStudent<=20){
-            success = true;
+        String noteStr = note.getText().toString();
+        if(!"".equals(noteStr)){
+            noteStudent = Double.parseDouble(noteStr);
+            System.out.println("note : " + noteStudent);
+
+            if (noteStudent >= 0 && noteStudent <= 20) {
+                success = true;
+            }
+            System.out.println("success : " + success);
         }
-        System.out.println("success : "+success);
         return  success;
     }
     private void addNote(Double noteStudent){

@@ -18,7 +18,7 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,18 +28,30 @@
         <activity android:name=".MenuActivity" />
         <activity
             android:name=".PostersActivity"
-            android:label="@string/title_activity_posters"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProjectsActivity"
-            android:label="@string/title_activity_projects"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ProjectDetailsActivity" />
-        <activity android:name=".MyJuriesActivity" />
-        <activity android:name=".JuryDetailsActivity" />
-        <activity android:name=".StudentNotationActivity" />
-        <activity android:name=".JPOActivity" />
-        <activity android:name=".JPOProjectDetailsActivity"></activity>
+        <activity
+            android:label="@string/app_name"
+            android:name=".ProjectDetailsActivity" />
+        <activity
+            android:label="@string/app_name"
+            android:name=".MyJuriesActivity" />
+        <activity
+            android:label="@string/app_name"
+            android:name=".JuryDetailsActivity" />
+        <activity
+            android:label="@string/app_name"
+            android:name=".StudentNotationActivity" />
+        <activity
+            android:label="@string/app_name"
+            android:name=".JPOActivity" />
+        <activity
+            android:label="@string/app_name"
+            android:name=".JPOProjectDetailsActivity"></activity>
     </application>
 
 </manifest>

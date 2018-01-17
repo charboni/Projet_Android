@@ -91,12 +91,9 @@ public class JPOActivity extends AppCompatActivity {
     }
 
     public void clickItem(Projects projects) {
-
-        Log.d("JpoProjectsAdapter", "Test fonctionnel");
         Intent intent = new Intent(this, JPOProjectDetailsActivity.class);
         intent.putExtra("project", projects);
-        //System.out.print("Test 2"+projects);
-        Log.d("Poster click", ""+ projects.getPoster());
+        //Log.d("Poster click", ""+ projects.getPoster());
         startActivity(intent);
     }
 }

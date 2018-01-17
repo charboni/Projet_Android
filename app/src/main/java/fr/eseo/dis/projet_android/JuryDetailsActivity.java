@@ -100,7 +100,7 @@ public class JuryDetailsActivity extends AppCompatActivity {
         org.json.simple.JSONArray studentsArray = (org.json.simple.JSONArray)json.get("students");
         ArrayList<Users> studentsList = createListUsers(studentsArray);
         studentsProjectList.put(String.valueOf(projects.getIdProject()),studentsList);
-        String surname = (String)supervisName.get("1"); //BUG wtf
+        String surname = (String)supervisName.get("surname"); //BUG wtf
         String forename = (String)supervisName.get("forename");
         String supervisor = surname + " "+forename;
         supervisorsList.put(String.valueOf(projects.getIdProject()),supervisor);

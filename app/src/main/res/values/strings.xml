@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android_Project</string>
+    <string name="app_name">SoManager</string>
     <string name="title_activity_login">SoManager</string>
 
     <!-- Strings related to login -->
