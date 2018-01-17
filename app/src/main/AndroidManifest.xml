@@ -25,32 +25,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity" />
+        <activity
+            android:label="Menu"
+            android:name=".MenuActivity" />
         <activity
             android:name=".PostersActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProjectsActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="Projects"
+            />
         <activity
-            android:label="@string/app_name"
+            android:label="Details project"
             android:name=".ProjectDetailsActivity" />
         <activity
-            android:label="@string/app_name"
+            android:label="My Juries"
             android:name=".MyJuriesActivity" />
         <activity
-            android:label="@string/app_name"
+            android:label="Jury's Projects "
             android:name=".JuryDetailsActivity" />
         <activity
-            android:label="@string/app_name"
+            android:label="Marks"
             android:name=".StudentNotationActivity" />
         <activity
-            android:label="@string/app_name"
+            android:label="JPO"
             android:name=".JPOActivity" />
         <activity
-            android:label="@string/app_name"
+            android:label="JPO"
             android:name=".JPOProjectDetailsActivity"></activity>
     </application>
 

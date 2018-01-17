@@ -52,8 +52,8 @@ public class MyJuriesAdapter extends
         final Juries juries = myJuriesList.get(position);
 
         holder.juryId.setText("JURY "+String.valueOf(juries.getIdJury()));
-        holder.juryDate.setText("Date soutenance : "+juries.getDate().toString());
-        holder.juryDesc.setText("Membres : "+juries.getDescription());
+        holder.juryDate.setText("Date of presentation : "+juries.getDate().toString());
+        holder.juryDesc.setText("Members : "+juries.getDescription());
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
